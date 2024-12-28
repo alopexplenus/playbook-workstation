@@ -1,5 +1,6 @@
 Ansible playbook that:
 
+* installs my current set of tools
 * installs the dotfiles manager [yadm](https://github.com/TheLocehiliosan/yadm)
 * installs the awesome shell prompt [starship](https://github.com/starship/starship)
 * clone a dotfiles repo

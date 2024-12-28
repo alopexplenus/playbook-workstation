@@ -1,28 +1,68 @@
 ---
-- name: install requirements (linux)
-  become: true
+- name: install tools (linux)
   ansible.builtin.package:
     name: 
-      - git
-      - tmux
-      - vim
-      - xclip
-      - xsel
-      - zsh
-      - zsh-syntax-highlighting
+      - "borg"
+      - "flameshot"
+      - "fzf" # fuzzy search
+      - "git"
+      - "git-delta"
+      - "github-cli"
+      - "guake"  # terminal
+      - "htop" 
+      - "httpie" # CLI http client
+      - "jq" # JSON TOOL
+      - "make"
+      - "ncdu" # disk usage
+      - "netcat" 
+      - "openvpn"
+      - "pandoc"
+      - "pdftk"
+      - "pgcli" # postgres client
+      - "poetry" # python dependency management and virtual environment
+      - "pyenv" # python versions
+      - "ripgrep" # regex tool
+      - "syncthing"
+      - "tlpui" # power management
+      - "tmux"
+      - "vim"
+      - "yadm" # dotfile management
+      - "zsh"
+      - "zsh-syntax-highlighting"
     state: present
-  when: ansible_facts.os_family == "Debian" or ansible_facts.os_family == "RedHat"
+  when: ansible_facts.os_family == "Debian" or ansible_facts.os_family == "RedHat" or ansible_facts.os_family == "Archlinux"
 
-- name: install requirements (mac)
-  community.general.homebrew:
+
+- name: "Install php"
+  ansible.builtin.package:
     name: 
-      - git
-      - tmux
-      - starship
-      - vim
-      - yadm
-      - zsh
-      - zsh-history-substring-search
-      - zsh-syntax-highlighting
+      - "php" 
+      - "php-xsl" 
+      - "php-gd" 
+  become: true
+  when: ansible_facts.os_family == "Debian" or ansible_facts.os_family == "RedHat" or ansible_facts.os_family == "Archlinux"
+
+
+- name: "Install toys"
+  ansible.builtin.package:
+    name: 
+      - "lolcat"
+      - "cowsay"
+      - "neofetch"
+  become: true
+  when: ansible_facts.os_family == "Debian" or ansible_facts.os_family == "RedHat" or ansible_facts.os_family == "Archlinux"
+
+- name: "Install docker"
+  ansible.builtin.package:
+    name: 
+      - "docker"
+      - "docker-compose"
+  become: true
+  when: ansible_facts.os_family == "Debian" or ansible_facts.os_family == "RedHat" or ansible_facts.os_family == "Archlinux"
+
+- name: "Install the silver searcher aka ag with pacman"
+  community.general.pacman:
+    name: the_silver_searcher
     state: present
-  when: ansible_facts.os_family == "Darwin"
+  become: true
+  when: ansible_os_family == "Archlinux"
