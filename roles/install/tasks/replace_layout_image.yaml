@@ -1,0 +1,10 @@
+---
+- name: ensure layout icon dir exists
+  file: 
+    path: "~/.local/share/xfce4/xkb/flags"
+    state: directory
+
+- name: set alternative image for Russian layout
+  template:
+    src: assets/ru.svg
+    dest: "~/.local/share/xfce4/xkb/flags/ru.svg"

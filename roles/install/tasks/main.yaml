@@ -9,3 +9,5 @@
 #- ansible.builtin.include_tasks: starship_install.yaml
   #when: ansible_facts.os_family != "Darwin"
 - ansible.builtin.include_tasks: set_default_shell.yaml
+- ansible.builtin.include_tasks: remap_capslock.yaml
+- ansible.builtin.include_tasks: replace_layout_image.yaml
