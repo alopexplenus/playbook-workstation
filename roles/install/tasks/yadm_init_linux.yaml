@@ -5,11 +5,11 @@
   register: repo_exists
 
 - name: clone dotfiles
-  ansible.builtin.command: ~/.local/bin/yadm clone "{{ repo }}"
+  ansible.builtin.command: yadm clone "{{ repo }}"
   args:
     chdir: ~/
   when: not repo_exists.stat.exists
 
 - name: run the checkout command
-  ansible.builtin.command: ~/.local/bin/yadm checkout ~/
+  ansible.builtin.command: yadm checkout ~/
   when: not repo_exists.stat.exists
