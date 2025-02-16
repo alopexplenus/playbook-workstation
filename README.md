@@ -2,7 +2,6 @@ Ansible playbook that:
 
 * installs my current set of tools
 * installs the dotfiles manager [yadm](https://github.com/TheLocehiliosan/yadm)
-* installs the awesome shell prompt [starship](https://github.com/starship/starship)
 * clone a dotfiles repo
 
 ## Requirements
@@ -18,7 +17,7 @@ From the playbook directory:
 
 ```
 # install and clone on local system
-ansible-playbook main.yaml --connection=local
+ansible-playbook main.yaml --connection=local --ask-become-pass
 
 # on remote systems (make sure to update the inventory)
 ansible-playbook main.yaml
