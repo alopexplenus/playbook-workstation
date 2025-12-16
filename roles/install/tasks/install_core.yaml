@@ -3,7 +3,6 @@
   ansible.builtin.package:
     name: 
       - "borg"
-      - "flameshot"
       - "fzf" # fuzzy search
       - "git"
       - "git-delta"
@@ -18,18 +17,21 @@
       - "netcat" 
       - "openvpn"
       - "pandoc"
-      - "pdftk"
+      - "pdftk" # use this mostly to concatenate pdfs
       - "pgcli" # postgres client
       - "poetry" # python dependency management and virtual environment
-      - "pyenv" # python versions
+      - "uv" # python dependency management and virtual environment
       - "ripgrep" # regex tool
       - "syncthing"
       - "tlpui" # power management
       - "tmux"
+      - "tilda" # terminal emulator
       - "vim"
+      - "helix"
       - "yadm" # dotfile management
       - "zsh"
       - "zsh-syntax-highlighting"
+      - "direnv"
     state: present
   become: true
   when: ansible_facts.os_family == "Debian" or ansible_facts.os_family == "RedHat" or ansible_facts.os_family == "Archlinux"
@@ -51,6 +53,7 @@
       - "lolcat"
       - "cowsay"
       - "neofetch"
+      - "termusic"
   become: true
   when: ansible_facts.os_family == "Debian" or ansible_facts.os_family == "RedHat" or ansible_facts.os_family == "Archlinux"
 
