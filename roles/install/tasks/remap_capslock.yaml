@@ -3,7 +3,7 @@
   ansible.builtin.lineinfile:
     path: /usr/share/X11/xkb/symbols/pc
     search_string: '    key <CAPS>'
-    line: '    key <CAPS> {[  F12  ]};'
+    line: '    key <CAPS> {[  F1  ]};'
     owner: root
     group: root
     mode: '0644'

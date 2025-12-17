@@ -9,6 +9,7 @@
       - "git-absorb"
       - "github-cli"
       - "guake"  # terminal
+      - "tilda"  # terminal, preconfigured in mydotfiles
       - "htop" 
       - "httpie" # CLI http client
       - "jq" # JSON TOOL
@@ -27,7 +28,6 @@
       - "syncthing"
       - "tlpui" # power management
       - "tmux"
-      - "tilda" # terminal emulator
       - "vim"
       - "helix"
       - "yadm" # dotfile management
