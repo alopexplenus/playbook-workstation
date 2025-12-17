@@ -21,6 +21,8 @@
       - "pgcli" # postgres client
       - "poetry" # python dependency management and virtual environment
       - "uv" # python dependency management and virtual environment
+      - "nodejs"
+      - "npm"
       - "ripgrep" # regex tool
       - "syncthing"
       - "tlpui" # power management
