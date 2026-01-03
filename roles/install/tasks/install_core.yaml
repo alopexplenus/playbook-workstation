@@ -15,7 +15,6 @@
       - "jq" # JSON TOOL
       - "make"
       - "ncdu" # disk usage
-      - "netcat" 
       - "openvpn"
       - "pandoc"
       - "pdftk" # use this mostly to concatenate pdfs
