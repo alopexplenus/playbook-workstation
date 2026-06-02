@@ -23,6 +23,7 @@
       - "uv" # python dependency management and virtual environment
       - "nodejs"
       - "npm"
+      - "pnpm"
       - "ripgrep" # regex tool
       - "syncthing"
       - "tlpui" # power management
@@ -34,6 +35,7 @@
       - "zsh-syntax-highlighting"
       - "direnv"
       - "netcat"
+      - "websocat"
     state: present
   become: true
   when: ansible_facts.os_family == "Debian" or ansible_facts.os_family == "RedHat" or ansible_facts.os_family == "Archlinux"
