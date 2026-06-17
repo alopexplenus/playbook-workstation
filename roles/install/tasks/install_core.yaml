@@ -8,8 +8,7 @@
       - "git-delta"
       - "git-absorb"
       - "github-cli"
-      - "guake"  # terminal
-      - "tilda"  # terminal, preconfigured in mydotfiles
+      - "tilda"  # terminal, toggle behavior preconfigured in mydotfiles
       - "htop" 
       - "httpie" # CLI http client
       - "jq" # JSON TOOL
