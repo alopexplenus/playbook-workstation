@@ -29,7 +29,8 @@
       - "tlpui" # power management
       - "tmux"
       - "vim"
-      - "helix"
+      - "nvim"
+      - "lazygit"
       - "yadm" # dotfile management
       - "zsh"
       - "zsh-syntax-highlighting"
