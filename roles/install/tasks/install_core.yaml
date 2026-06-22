@@ -36,6 +36,7 @@
       - "direnv"
       - "netcat"
       - "websocat"
+      - "mkcert" # certificate generation, for local ssl setup
     state: present
   become: true
   when: ansible_facts.os_family == "Debian" or ansible_facts.os_family == "RedHat" or ansible_facts.os_family == "Archlinux"
