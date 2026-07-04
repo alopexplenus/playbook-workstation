@@ -7,3 +7,5 @@ ollama_models:
   - llama3.2:3b
   - gemma2:2b
   - phi3.5
+whisper_model: small.en
+whisper_src: "{{ ansible_env.HOME }}/.local/src/whisper.cpp"

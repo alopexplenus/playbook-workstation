@@ -1,0 +1,52 @@
+---
+# Installs the VOICE dictation tooling: whisper.cpp + system helpers, and binds
+# the XFCE toggle hotkey. NOT OpenCode-specific — the script (~/.local/bin/voice-toggle,
+# carried by yadm) types into whatever window is focused.
+
+- name: install voice system packages (linux)
+  ansible.builtin.package:
+    name:
+      - "xdotool"      # type transcribed text into the focused window
+      - "libnotify"    # notify-send (Debian: libnotify-bin)
+      - "cmake"        # build whisper.cpp
+    state: present
+  become: true
+  when: ansible_facts.os_family == "Debian" or ansible_facts.os_family == "RedHat" or ansible_facts.os_family == "Archlinux"
+
+- name: check whisper.cpp binary
+  ansible.builtin.stat:
+    path: "{{ whisper_src }}/build/bin/whisper-cli"
+  register: whisper_bin
+
+- name: clone whisper.cpp
+  ansible.builtin.git:
+    repo: https://github.com/ggml-org/whisper.cpp
+    dest: "{{ whisper_src }}"
+    depth: 1
+    version: master
+  when: not whisper_bin.stat.exists
+
+- name: build whisper.cpp
+  ansible.builtin.command:
+    cmd: "{{ item }}"
+    chdir: "{{ whisper_src }}"
+  loop:
+    - "cmake -B build"
+    - "cmake --build build --config Release -j"
+  when: not whisper_bin.stat.exists
+
+- name: download whisper model
+  ansible.builtin.command:
+    cmd: "sh ./models/download-ggml-model.sh {{ whisper_model }}"
+    chdir: "{{ whisper_src }}"
+    creates: "{{ whisper_src }}/models/ggml-{{ whisper_model }}.bin"
+
+- name: bind voice-toggle to Super+V (XFCE)
+  ansible.builtin.command: >
+    xfconf-query -c xfce4-keyboard-shortcuts
+    -p "/commands/custom/<Super>v" --create -t string
+    -s "{{ ansible_env.HOME }}/.local/bin/voice-toggle"
+  register: xfconf_bind
+  changed_when: xfconf_bind.rc == 0
+  failed_when: false
+  when: ansible_facts.os_family == "Archlinux" or ansible_facts.os_family == "Debian"

@@ -7,3 +7,4 @@
 - ansible.builtin.include_tasks: remap_capslock.yaml
 - ansible.builtin.include_tasks: replace_layout_image.yaml
 - ansible.builtin.include_tasks: install_agentic.yaml
+- ansible.builtin.include_tasks: install_voice.yaml
