@@ -1,0 +1,31 @@
+---
+# Installs the AGENTIC binaries: OpenCode + Ollama (and local models).
+# Config is carried by yadm (dotfiles), not here.
+# Voice tooling is NOT here — it is not OpenCode-specific; see install_voice.yaml.
+
+- name: check if opencode is installed
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.opencode/bin/opencode"
+  register: opencode_bin
+
+- name: install opencode
+  ansible.builtin.shell: curl -fsSL https://opencode.ai/install | bash
+  args:
+    creates: "{{ ansible_env.HOME }}/.opencode/bin/opencode"
+  when: not opencode_bin.stat.exists
+
+- name: check if ollama is installed
+  ansible.builtin.command: command -v ollama
+  register: ollama_check
+  changed_when: false
+  failed_when: false
+
+- name: install ollama
+  ansible.builtin.shell: curl -fsSL https://ollama.com/install.sh | sh
+  when: ollama_check.rc != 0
+
+- name: pull ollama models
+  ansible.builtin.command: "ollama pull {{ item }}"
+  loop: "{{ ollama_models }}"
+  register: ollama_pull
+  changed_when: "'success' in (ollama_pull.stdout | lower)"
