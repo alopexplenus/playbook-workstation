@@ -9,19 +9,23 @@
   register: opencode_bin
 
 - name: install opencode
-  ansible.builtin.shell: curl -fsSL https://opencode.ai/install | bash
+  ansible.builtin.shell: set -o pipefail; curl -fsSL https://opencode.ai/install | bash
   args:
+    executable: /bin/bash
     creates: "{{ ansible_env.HOME }}/.opencode/bin/opencode"
   when: not opencode_bin.stat.exists
 
 - name: check if ollama is installed
-  ansible.builtin.command: command -v ollama
+  ansible.builtin.shell: command -v ollama
   register: ollama_check
   changed_when: false
   failed_when: false
 
 - name: install ollama
-  ansible.builtin.shell: curl -fsSL https://ollama.com/install.sh | sh
+  ansible.builtin.shell: set -o pipefail; curl -fsSL https://ollama.com/install.sh | sh
+  args:
+    executable: /bin/bash
+  become: true
   when: ollama_check.rc != 0
 
 - name: pull ollama models
