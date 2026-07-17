@@ -1,0 +1,24 @@
+---
+- name: Get user UID
+  ansible.builtin.command: id -u
+  register: user_uid
+  changed_when: false
+
+- name: Check if user lingering is enabled
+  ansible.builtin.stat:
+    path: "/var/lib/systemd/linger/{{ ansible_user_id }}"
+  register: user_lingering
+
+- name: Enable lingering for user
+  ansible.builtin.command: "loginctl enable-linger {{ ansible_user_id }}"
+  become: true
+  when: not user_lingering.stat.exists
+
+- name: Enable and start Syncthing user service
+  ansible.builtin.systemd:
+    name: syncthing
+    enabled: true
+    state: started
+    scope: user
+  environment:
+    XDG_RUNTIME_DIR: "/run/user/{{ user_uid.stdout }}"

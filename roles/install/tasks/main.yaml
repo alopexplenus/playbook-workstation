@@ -8,3 +8,4 @@
 - ansible.builtin.include_tasks: replace_layout_image.yaml
 - ansible.builtin.include_tasks: install_agentic.yaml
 - ansible.builtin.include_tasks: install_voice.yaml
+- ansible.builtin.include_tasks: install_syncthing.yaml
