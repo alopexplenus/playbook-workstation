@@ -15,6 +15,14 @@
     creates: "{{ ansible_env.HOME }}/.opencode/bin/opencode"
   when: not opencode_bin.stat.exists
 
+- name: install pyright (python LSP for opencode)
+  # uv is installed in install_core.yaml. uv tool installs into the user's
+  # ~/.local/share/uv/tools and symlinks the executable into ~/.local/bin.
+  # Runs as the user (NOT become), so opencode can launch pyright-langserver.
+  ansible.builtin.command: uv tool install pyright
+  args:
+    creates: "{{ ansible_env.HOME }}/.local/bin/pyright-langserver"
+
 - name: check if ollama is installed
   ansible.builtin.shell: command -v ollama
   register: ollama_check
