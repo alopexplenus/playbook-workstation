@@ -1,6 +1,6 @@
 ---
 dotfile_path: ~/.local/share/yadm/repo.git
-repo: https://github.com/alopexplenus/mydotfiles
+repo: https://github.com/alopexplenus/dotfiles
 set_zsh: true
 ollama_models:
   - qwen2.5:3b
