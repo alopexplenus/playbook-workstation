@@ -1,4 +1,6 @@
 ---
 - hosts: desktop
   roles:
+    - role: dotfiles
+      dotfiles_class: desktop
     - role: desktop
