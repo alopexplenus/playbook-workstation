@@ -1,0 +1,21 @@
+---
+- name: check if dotfile repo has already been cloned
+  ansible.builtin.stat:
+    path: "{{ dotfiles_repo_path }}"
+  register: dotfiles_repo_exists
+
+- name: clone dotfiles
+  ansible.builtin.command: yadm clone "{{ dotfiles_repo }}"
+  args:
+    chdir: "~/"
+  when: not dotfiles_repo_exists.stat.exists
+
+- name: configure dotfiles class
+  ansible.builtin.command: yadm config local.class "{{ dotfiles_class }}"
+
+- name: materialize dotfiles alternates
+  ansible.builtin.command: yadm alt
+
+- name: check out dotfiles
+  ansible.builtin.command: yadm checkout "~/"
+  when: not dotfiles_repo_exists.stat.exists

@@ -16,7 +16,7 @@
   when: not yadm_exists.stat.exists
 
 - name: get latest version
-  ansible.builtin.command: bash -c "git describe --tags | sed 's/^v//' | cut -d "-" -f1"
+  ansible.builtin.command: bash -c "git describe --tags | sed 's/^v//' | cut -d \"-\" -f1"
   args:
     chdir: /tmp/yadm
   register: git_version
