@@ -1,0 +1,16 @@
+---
+- name: check if Vundle is already installed
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.vim/bundle/Vundle.vim"
+  register: vundle_exists
+
+- name: install Vundle
+  ansible.builtin.git:
+    repo: https://github.com/VundleVim/Vundle.vim
+    dest: "{{ ansible_env.HOME }}/.vim/bundle/Vundle.vim"
+    version: master
+    depth: 1
+  environment:
+    GIT_CONFIG_GLOBAL: /dev/null
+    GIT_CONFIG_NOSYSTEM: "1"
+  when: not vundle_exists.stat.exists
