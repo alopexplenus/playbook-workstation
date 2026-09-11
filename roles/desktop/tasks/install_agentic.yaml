@@ -1,5 +1,5 @@
 ---
-# Installs the AGENTIC binaries: OpenCode + Ollama (and local models).
+# Installs the AGENTIC binaries: OpenCode.
 # Config is carried by yadm (dotfiles), not here.
 # Voice tooling is NOT here — it is not OpenCode-specific; see install_voice.yaml.
 
@@ -22,22 +22,3 @@
   ansible.builtin.command: uv tool install pyright
   args:
     creates: "{{ ansible_env.HOME }}/.local/bin/pyright-langserver"
-
-- name: check if ollama is installed
-  ansible.builtin.shell: command -v ollama
-  register: ollama_check
-  changed_when: false
-  failed_when: false
-
-- name: install ollama
-  ansible.builtin.shell: set -o pipefail; curl -fsSL https://ollama.com/install.sh | sh
-  args:
-    executable: /bin/bash
-  become: true
-  when: ollama_check.rc != 0
-
-- name: pull ollama models
-  ansible.builtin.command: "ollama pull {{ item }}"
-  loop: "{{ ollama_models }}"
-  register: ollama_pull
-  changed_when: "'success' in (ollama_pull.stdout | lower)"
