@@ -1,4 +1,0 @@
-; Copy this file to inventory.ini and set the values for your machines.
-
-[desktop]
-localhost ansible_connection=local

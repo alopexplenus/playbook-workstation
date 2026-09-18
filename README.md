@@ -20,8 +20,8 @@ From the playbook directory:
 ansible-playbook workstation.yaml --ask-become-pass
 ```
 
-Copy `inventory.ini.example` to `inventory.ini` (the only group is
-`[desktop]`, aimed at localhost). The local inventory is ignored by Git.
+The inventory is checked in and targets only `localhost` in the `[desktop]`
+group; `ansible.cfg` picks it up automatically.
 
 ## Tailscale access
 
