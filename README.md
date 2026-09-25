@@ -31,18 +31,3 @@ tailnet:
 ```bash
 sudo tailscale up
 ```
-
-## OpenCode clients on the trusted LAN
-
-When consuming an OpenCode server provisioned by the separate infra repo, set
-the workstation overrides used by the `wk` helper:
-
-```bash
-export WK_OPENCODE_LAN_URL=http://LAN_HOST:4096
-export WK_OPENCODE_TAILSCALE_URL=http://TAILSCALE_HOST:4096
-```
-
-`WK_OPENCODE_LAN_URL` is checked first and `WK_OPENCODE_TAILSCALE_URL` is the
-fallback. These settings contain endpoints only; the server password is
-configured on the server side and is entered interactively by
-`wk --remote PROJECT`.
