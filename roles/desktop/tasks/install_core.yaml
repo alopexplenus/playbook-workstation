@@ -71,6 +71,21 @@
   become: true
   when: ansible_facts.os_family == "Debian" or ansible_facts.os_family == "RedHat" or ansible_facts.os_family == "Archlinux"
 
+- name: "Install NestJS CLI (nest)"
+  community.general.npm:
+    name: "@nestjs/cli"
+    global: true
+    state: present
+  become: true
+
+- name: "Install yay (AUR helper)"
+  # In the CachyOS repos; on vanilla Arch it must be bootstrapped from the AUR.
+  community.general.pacman:
+    name: yay
+    state: present
+  become: true
+  when: ansible_facts.os_family == "Archlinux"
+
 - name: "Install the silver searcher aka ag with pacman"
   community.general.pacman:
     name: the_silver_searcher
